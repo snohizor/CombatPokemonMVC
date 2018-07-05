@@ -3,7 +3,6 @@ package model;
 import controller.GameController;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import static controller.GameController.logp;
 
@@ -20,11 +19,12 @@ public class Pokemon {
         return list;
     }
 
-    public static Pokemon pkm1 = new Pokemon("Bulbizarre", 45, addAtkToList(Attack.tackle, Attack.roar, atksList), 49, 49, 65, 65, 45);
-    public static Pokemon pkm2 = new Pokemon("Pikachu",    35, addAtkToList(Attack.tackle, Attack.roar, atksList),  55, 50, 50, 90, 45);
+    public static Pokemon pkm1 = new Pokemon("Bulbizarre", 45,45, addAtkToList(Attack.tackle, Attack.roar, atksList), 49, 49, 65, 65, 45);
+    public static Pokemon pkm2 = new Pokemon("Pikachu",    35,35, addAtkToList(Attack.tackle, Attack.roar, atksList),  55, 50, 50, 45, 90);
 
     private String name;
-    private int Hp;
+    private int hpMax;
+    private int hp;
     private ArrayList<Attack> attackList;
     private int atk;
     private int def;
@@ -32,9 +32,10 @@ public class Pokemon {
     private int sde;
     private int spe;
 
-    public Pokemon(String name, int hp, ArrayList attackList, int atk, int def, int sat, int sde, int spe) {
+    public Pokemon(String name, int hpMax, int hp, ArrayList attackList, int atk, int def, int sat, int sde, int spe) {
         this.name = name;
-        Hp = hp;
+        this.hpMax = hpMax;
+        this.hp = hp;
         this.attackList = attackList == null ? new ArrayList<>() : attackList.size() > 4 ? new ArrayList<>() : attackList;
         this.atk = atk;
         this.def = def;
@@ -62,21 +63,6 @@ public class Pokemon {
         return this.attackList.get(indexOfAttack).getAccuracy() > (int)(Math.random() * (100-0));
     }
 
-    public void displayStats(){
-        logp("-------");
-        logp(this.name);
-        logp("hp : " + this.Hp);
-        logp("atk: " + this.atk);
-        logp("def: " + this.def);
-        logp("sat: " + this.sat);
-        logp("sde: " + this.sde);
-        logp("spe: " + this.spe);
-        logp("-------");
-    }
-
-    public void displayAttacks(){
-
-    }
 
 
     public String getName() {
@@ -87,12 +73,20 @@ public class Pokemon {
         this.name = name;
     }
 
+    public int getHpMax() {
+        return hpMax;
+    }
+
+    public void setHpMax(int hpMax) {
+        this.hpMax = hpMax;
+    }
+
     public int getHp() {
-        return Hp;
+        return hp;
     }
 
     public void setHp(int hp) {
-        Hp = hp;
+        this.hp = hp;
     }
 
     public ArrayList getAttackList() {
