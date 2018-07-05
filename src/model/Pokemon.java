@@ -9,38 +9,19 @@ import static controller.GameController.logp;
 
 public class Pokemon {
 
-    ArrayList<Attack> atksBulbi = new ArrayList<(Arrays.asList(Attack.tackle, Attack.roar)>;
 
 
+    private static ArrayList<Attack> atksList = new ArrayList<Attack>();
 
-    private static ArrayList<Attack> atksPika = new ArrayList<Attack>();
-    public static Pokemon pkm1 = new Pokemon("Bulbizarre", 45, atksBulbi, 49, 49, 65, 65, 45);
-    public static Pokemon pkm2 = new Pokemon("Pikachu",    35, atksBulbi,  55, 50, 50, 90, 45);
-
-    public void chargeAtks(Pokemon pkm){
-        pkm.attackList =
+    public static ArrayList addAtkToList(Attack atk1, Attack atk2, ArrayList list){
+        list.clear();
+        list.add(atk1);
+        list.add(atk2);
+        return list;
     }
 
-    public void setAtksBulbi(ArrayList<Attack> atksBulbi) {
-        this.atksBulbi = atksBulbi;
-        atksBulbi.add(Attack.tackle);
-        atksBulbi.add(Attack.roar);
-    }
-
-    public ArrayList<Attack> getAtksBulbi() {
-        return atksBulbi;
-    }
-
-    public void setAtksPika(ArrayList<Attack> atksBulbi) {
-        this.atksBulbi = atksBulbi;
-        atksBulbi.add(Attack.tackle);
-        atksBulbi.add(Attack.roar);
-    }
-
-    public ArrayList<Attack> getAtksPika() {
-        return atksBulbi;
-    }
-
+    public static Pokemon pkm1 = new Pokemon("Bulbizarre", 45, addAtkToList(Attack.tackle, Attack.roar, atksList), 49, 49, 65, 65, 45);
+    public static Pokemon pkm2 = new Pokemon("Pikachu",    35, addAtkToList(Attack.tackle, Attack.roar, atksList),  55, 50, 50, 90, 45);
 
     private String name;
     private int Hp;
@@ -81,11 +62,22 @@ public class Pokemon {
         return this.attackList.get(indexOfAttack).getAccuracy() > (int)(Math.random() * (100-0));
     }
 
+    public void displayStats(){
+        logp("-------");
+        logp(this.name);
+        logp("hp : " + this.Hp);
+        logp("atk: " + this.atk);
+        logp("def: " + this.def);
+        logp("sat: " + this.sat);
+        logp("sde: " + this.sde);
+        logp("spe: " + this.spe);
+        logp("-------");
+    }
 
+    public void displayAttacks(){
 
-    // TODO: 04/07/2018 statUp()
+    }
 
-    // TODO: 04/07/2018 statDown(Pokemon opponent)
 
     public String getName() {
         return name;

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Attack {
 
     public static Attack tackle = new Attack("Tackle", 10, 100);
@@ -13,6 +15,10 @@ public class Attack {
         this.name = name;
         this.power = power;
         this.accuracy = accuracy;
+    }
+
+    public Object addAttackToList(ArrayList list){
+        return list.add(this);
     }
 
     public String getName() {
@@ -38,4 +44,5 @@ public class Attack {
     public void setAccuracy(int accuracy) {
         this.accuracy = accuracy;
     }
+
 }

@@ -13,8 +13,10 @@ public class AppRunner {
         Pokemon pkm1 = new GameController().pkmn1;
         Pokemon pkm2 = new GameController().pkmn2;
 
-
-        System.out.println(pkm1.getAttackList());
         //GameController.fight(pkm1, pkm2);
+
+        pkm1.displayStats();
+        pkm2.displayStats();
+
     }
 }
