@@ -5,6 +5,8 @@ import controller.GameController;
 import java.util.ArrayList;
 
 import static controller.GameController.logp;
+import static controller.GameController.scan;
+import static model.Attack.lastAttackDone;
 
 public class Pokemon {
 
@@ -12,17 +14,20 @@ public class Pokemon {
 
     private static ArrayList<Attack> atksList = new ArrayList<Attack>();
 
-    public static ArrayList addAtkToList(Attack atk1, Attack atk2, ArrayList list){
+    public static ArrayList addAtkToList(Attack atk1, Attack atk2, Attack atk3, Attack atk4, ArrayList list){
         list.clear();
         list.add(atk1);
         list.add(atk2);
+        list.add(atk3);
+        list.add(atk4);
         return list;
     }
 
-    public static Pokemon pkm1 = new Pokemon("Bulbizarre", 45,45, addAtkToList(Attack.tackle, Attack.roar, atksList), 49, 49, 65, 65, 45);
-    public static Pokemon pkm2 = new Pokemon("Pikachu",    35,35, addAtkToList(Attack.tackle, Attack.roar, atksList),  55, 50, 50, 45, 90);
+    public static Pokemon pkm1 = new Pokemon("Bulbizarre", 10,45,45, addAtkToList(Attack.tackle, Attack.roar, Attack.empty, Attack.empty, atksList), 49, 49, 65, 65, 45);
+    public static Pokemon pkm2 = new Pokemon("Pikachu",    10,35,35, addAtkToList(Attack.tackle, Attack.roar, Attack.empty, Attack.empty, atksList),  55, 50, 50, 45, 90);
 
     private String name;
+    private int lvl;
     private int hpMax;
     private int hp;
     private ArrayList<Attack> attackList;
@@ -32,8 +37,9 @@ public class Pokemon {
     private int sde;
     private int spe;
 
-    public Pokemon(String name, int hpMax, int hp, ArrayList attackList, int atk, int def, int sat, int sde, int spe) {
+    public Pokemon(String name, int lvl, int hpMax, int hp, ArrayList attackList, int atk, int def, int sat, int sde, int spe) {
         this.name = name;
+        this.lvl = lvl;
         this.hpMax = hpMax;
         this.hp = hp;
         this.attackList = attackList == null ? new ArrayList<>() : attackList.size() > 4 ? new ArrayList<>() : attackList;
@@ -44,19 +50,23 @@ public class Pokemon {
         this.spe = spe;
     }
 
-    public void attack(Integer indexOfAttack, Pokemon opponent) {
-        System.out.println(this.attackList.get(1).getName());
-        Attack attack = this.attackList.get(indexOfAttack);
-        logp(this.getName() + " uses " + attack.getName() + " !");
-        if(this.attackSuccess(indexOfAttack)){
-            opponent.setHp(opponent.getHp() - attack.getPower());
-            logp(opponent.getName() + " has now " + opponent.getHp() + " hp.");
-        } else{
-            logp("yo this shitass monster missed...");
-        }
-        int value = attack.getPower() * this.getAtk();
-        double HPToRemove = value * GameController.factor;// TODO: 04/07/2018
-        opponent.setHp((int) (opponent.getHp() - HPToRemove));
+    public void attack(Pokemon opponent) {
+        opponent.looseHp(this.use(this.getAtksList().get(scan), opponent));
+    }
+
+    public int use(Attack attack, Pokemon opponent){
+        double hpToRemove = ((((this.getLvl() * 0.4 + 2) * this.getAtk() * attack.getPower())/(opponent.getDef() * 50)) + 2);
+        int result = (int) hpToRemove;
+        return result;
+    }
+
+    public void chooseAttack(){
+        scan = scan();
+        lastAttackDone = this.attackList.get(scan);
+    }
+
+    public void looseHp(int hpToLoose){
+        this.setHp(this.getHp() - hpToLoose);
     }
 
     public boolean attackSuccess(Integer indexOfAttack){
@@ -71,6 +81,14 @@ public class Pokemon {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getLvl() {
+        return lvl;
+    }
+
+    public void setLvl(int lvl) {
+        this.lvl = lvl;
     }
 
     public int getHpMax() {
@@ -89,13 +107,12 @@ public class Pokemon {
         this.hp = hp;
     }
 
-    public ArrayList getAttackList() {
-        ArrayList<Attack> list = new ArrayList<>();
-        Attack atk1 = Attack.tackle;
-        list.add(atk1);
-        Attack atk2 = Attack.roar;
-        list.add(atk2);
-        return list;
+    public ArrayList<Attack> getAtksList() {
+        return atksList;
+    }
+
+    public static void setAtksList(ArrayList<Attack> atksList) {
+        Pokemon.atksList = atksList;
     }
 
     public void setAttackList(ArrayList attackList) {

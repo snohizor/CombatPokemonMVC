@@ -9,14 +9,10 @@ public class AppRunner {
         AppController baseApp = new AppController();
         //baseApp.start();
 
-        logp("START");logp("");
         Pokemon pkm1 = new PokemonController().pkmn1;
         Pokemon pkm2 = new PokemonController().pkmn2;
 
-        //GameController.fight(pkm1, pkm2);
-
-        GameController.displayTitle(pkm1,pkm2);
-
+        GameController.fight(pkm1, pkm2);
 
     }
 
