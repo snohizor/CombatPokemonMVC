@@ -10,13 +10,14 @@ public class AppRunner {
         //baseApp.start();
 
         logp("START");logp("");
-        Pokemon pkm1 = new GameController().pkmn1;
-        Pokemon pkm2 = new GameController().pkmn2;
+        Pokemon pkm1 = new PokemonController().pkmn1;
+        Pokemon pkm2 = new PokemonController().pkmn2;
 
         //GameController.fight(pkm1, pkm2);
 
+        GameController.displayTitle(pkm1,pkm2);
 
-        PokemonController.displayTitle(pkm1,pkm2);
 
     }
+
 }
