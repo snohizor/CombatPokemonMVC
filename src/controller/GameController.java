@@ -17,15 +17,21 @@ public class GameController {
     final static int maxLogLength = 26;
 
     public static void fight(Pokemon pokemon, Pokemon opponent) {
-        pokemonTurn = pkm1;
-        pokemonTurn = (pokemon.getSpe() > opponent.getSpe()) ? pokemon : opponent;
+        pokemonTurn = getFastestPokemon(pokemon, opponent);
         opponentTurn = (opponent.getSpe() > pokemon.getSpe()) ? pokemon : opponent;
 
         IDisplayConsoleController.refresh(pkm1, pkm2);
+
+
     }
 
     public static void changeIndexPlayer (Pokemon pokemon, Pokemon opponent){
         pokemonTurn = (pokemonTurn == pokemon) ? (pokemonTurn = opponent) : (pokemonTurn = pokemon);
+    }
+
+    public static Pokemon getFastestPokemon(Pokemon pokemon, Pokemon opponent){
+        Pokemon fastestPokemon = pokemon.getSpe() > opponent.getSpe() ? pokemon : opponent;
+        return fastestPokemon;
     }
 
     public static int scan(){
