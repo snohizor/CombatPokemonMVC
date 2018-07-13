@@ -10,6 +10,8 @@ public class AppRunner {
         Pokemon pkm1 = new PokemonController().pkmn1;
         Pokemon pkm2 = new PokemonController().pkmn2;
 
+        IDisplayConsoleController.displayMessage(pkm1, pkm2);
+
         GameController.fight(pkm1, pkm2);
 
     }

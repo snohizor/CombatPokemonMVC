@@ -21,7 +21,7 @@ public class GameController {
         pokemonTurn = (pokemon.getSpe() > opponent.getSpe()) ? pokemon : opponent;
         opponentTurn = (opponent.getSpe() > pokemon.getSpe()) ? pokemon : opponent;
 
-        IDisplayController.refresh(pkm1, pkm2);
+        IDisplayConsoleController.refresh(pkm1, pkm2);
     }
 
     public static void changeIndexPlayer (Pokemon pokemon, Pokemon opponent){

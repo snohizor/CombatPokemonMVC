@@ -1,16 +1,12 @@
 package controller;
 
-
-import javafx.beans.DefaultProperty;
 import model.Pokemon;
 
 import java.util.Scanner;
 
 import static controller.GameController.maxLogLength;
 
-public interface IDisplayController {
-
-
+public interface IDisplayConsoleController {
 
     static void refresh(Pokemon pokemon, Pokemon opponent){
         clearScreen();
@@ -19,7 +15,30 @@ public interface IDisplayController {
     }
 
     static void displayMessage(Pokemon pokemon, Pokemon opponent) {
-        logp(PROP.getProperties);
+        String messageToDisplay;
+        String tempMsg = "Herbizarre est la plus sexy des grenouilles. J'adore ce pokemon wallah il est trop biiiien !!";
+        //auto ajust line
+        String[] cutMsg = tempMsg.split("\\W+");
+        if(tempMsg.length() > maxLogLength){
+            int msgLength = 0;
+            //messageToDisplay = " " + tempMsg.substring(0,(maxLogLength-2));
+            for (String word : cutMsg) {
+                msgLength = msgLength + word.length() + 1;
+                if(msgLength>=maxLogLength){
+                    //si on s apprette a depasser
+                    System.out.print("\n" + word + " ");
+                    msgLength = word.length();
+                }else{
+                    System.out.print(word + " ");
+                }
+
+            }
+        } else{
+            messageToDisplay = tempMsg;
+        }
+
+
+        //logp(messageToDisplay);
     }
 
 
