@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 public class Attack {
 
+    public static Attack empty = new Attack("-----", 0, 0);
     public static Attack tackle = new Attack("Tackle", 10, 100);
     public static Attack roar =   new Attack("Roar",    0, 100);
+
+    public static Attack lastAttackDone;
 
     private String name;
     private int power;

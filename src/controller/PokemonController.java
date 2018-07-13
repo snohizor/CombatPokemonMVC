@@ -10,4 +10,5 @@ public class PokemonController {
     Attack charge = new Attack("Tackle", 40, 95); //
     Attack roar = new Attack("Roar", 0, 100); //
 
+
 }

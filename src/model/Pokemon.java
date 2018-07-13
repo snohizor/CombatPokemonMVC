@@ -1,10 +1,10 @@
 package model;
 
+
 import controller.GameController;
 
 import java.util.ArrayList;
 
-import static controller.GameController.logp;
 import static controller.GameController.scan;
 import static model.Attack.lastAttackDone;
 
@@ -51,7 +51,7 @@ public class Pokemon {
     }
 
     public void attack(Pokemon opponent) {
-        opponent.looseHp(this.use(this.getAtksList().get(scan), opponent));
+        opponent.looseHp(this.use(this.getAtksList().get(GameController.scan()), opponent));
     }
 
     public int use(Attack attack, Pokemon opponent){
@@ -61,7 +61,7 @@ public class Pokemon {
     }
 
     public void chooseAttack(){
-        scan = scan();
+        int scan = scan();
         lastAttackDone = this.attackList.get(scan);
     }
 
