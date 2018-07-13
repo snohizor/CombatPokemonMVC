@@ -5,36 +5,33 @@ import model.Pokemon;
 import java.util.Scanner;
 
 import static controller.GameController.maxLogLength;
+import static controller.GameController.msg;
 
 public interface IDisplayConsoleController {
 
-    static void refresh(Pokemon pokemon, Pokemon opponent){
+    static void refresh(String msg, Pokemon pokemon, Pokemon opponent){
         clearScreen();
         displayFightScene(pokemon, opponent);
-        displayMessage(pokemon, opponent);
+        displayMessage(msg, pokemon, opponent);
     }
 
-    static void displayMessage(Pokemon pokemon, Pokemon opponent) {
-        String messageToDisplay;
-        String tempMsg = "Herbizarre est la plus sexy des grenouilles. J'adore ce pokemon wallah il est trop biiiien !!";
+    static void displayMessage(String tempMsg, Pokemon pokemon, Pokemon opponent) {
         //auto ajust line
-        String[] cutMsg = tempMsg.split("\\W+");
-        if(tempMsg.length() > maxLogLength){
+        if(tempMsg.length() >= maxLogLength){
+            String[] cutMsg = tempMsg.split("\\W+");
             int msgLength = 0;
-            //messageToDisplay = " " + tempMsg.substring(0,(maxLogLength-2));
             for (String word : cutMsg) {
                 msgLength = msgLength + word.length() + 1;
                 if(msgLength>=maxLogLength){
                     //si on s apprette a depasser
                     System.out.print("\n" + word + " ");
-                    msgLength = word.length();
+                    msgLength = word.length() + 1;
                 }else{
-                    System.out.print(word + " ");
+                    System.out.print(word + " ");;
                 }
-
             }
         } else{
-            messageToDisplay = tempMsg;
+            logp(tempMsg);
         }
 
 
@@ -60,7 +57,11 @@ public interface IDisplayConsoleController {
     }
 
     static void displayStart(Pokemon pokemon, Pokemon opponent){
+        msg =  opponent.getName() + " wants to fight !";
+    }
 
+    static void ofhsjfhoq(){
+        msg = "salut";
     }
 
     static void displayStats(Pokemon pokemon, Pokemon opponent){
