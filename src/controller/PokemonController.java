@@ -13,6 +13,6 @@ public class PokemonController {
     public static void chooseAttack(Pokemon pokemon, Pokemon opponent){
         GameController.msg = "What is " + pokemon.getName() + " gonna do ?" +
                 "\n" + IDisplayConsoleController.getDisplayAttacks(pokemon);
-        Attack.lastAttackDone = pokemon.getAtksList().get(GameController.scan());
+        Attack.choosenAttack = pokemon.getAtksList().get(GameController.scan());
     }
 }

@@ -5,9 +5,6 @@ import controller.GameController;
 
 import java.util.ArrayList;
 
-import static controller.GameController.scan;
-import static model.Attack.lastAttackDone;
-
 public class Pokemon {
 
 
@@ -53,15 +50,11 @@ public class Pokemon {
 
     public void use(Attack attack, Pokemon opponent){
         double hpToRemove = ((((this.getLvl() * 0.4 + 2) * this.getAtk() * attack.getPower())/(opponent.getDef() * 50)) + 2);
-        System.out.println(hpToRemove);
         int result = (int) hpToRemove;
         opponent.setHp(opponent.getHp() - result);
         GameController.msg = "What is " + this.getName() + " gonna do ?";
     }
 
-    public void looseHp(int hpToLoose){
-        this.setHp(this.getHp() - hpToLoose);
-    }
 
     public boolean attackSuccess(Integer indexOfAttack){
         return this.attackList.get(indexOfAttack).getAccuracy() > (int)(Math.random() * (100-0));

@@ -8,7 +8,7 @@ public class Attack {
     public static Attack tackle = new Attack("Tackle", 10, 100);
     public static Attack roar =   new Attack("Roar",    0, 100);
 
-    public static Attack lastAttackDone;
+    public static Attack choosenAttack;
 
     private String name;
     private int power;

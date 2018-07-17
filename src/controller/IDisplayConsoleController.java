@@ -9,37 +9,43 @@ import static controller.GameController.msg;
 
 public interface IDisplayConsoleController {
 
-    static void refresh(String msg, Pokemon pokemon, Pokemon opponent){
+    static void refresh(String msg, boolean backline, Pokemon pokemon, Pokemon opponent){
         clearScreen();
         displayFightScene(pokemon, opponent);
-        displayMessage(msg, pokemon, opponent);
+        displayMessage(msg, backline, pokemon, opponent);
     }
 
-    static void displayMessage(String tempMsg, Pokemon pokemon, Pokemon opponent) {
-        //auto ajust line
+    static void displayMessage(String tempMsg, boolean backline, Pokemon pokemon, Pokemon opponent) {
         int lineNb = 0;
-        if(tempMsg.length() >= maxLogLength){
-            String[] cutMsg = tempMsg.split("\\W+");
-            int msgLength = 0;
-            for (String word : cutMsg) {
-                msgLength = msgLength + word.length() + 1;
-                if(msgLength>=maxLogLength){
-                    //si on s apprette a depasser
-                    System.out.print("\n" + word + " ");
-                    msgLength = word.length() + 1;
-                    lineNb++;
-                } else{
-                    System.out.print(word + " ");;
+        //auto ajust line on
+        if(backline == true){
+            if(tempMsg.length() >= maxLogLength){
+                String[] cutMsg = tempMsg.split("\\W+");
+                int msgLength = 0;
+                for (String word : cutMsg) {
+                    msgLength = msgLength + word.length() + 1;
+                    if(msgLength>=maxLogLength){
+                        //si on s apprette a depasser
+                        System.out.print("\n" + word + " ");
+                        msgLength = word.length() + 1;
+                        lineNb++;
+                    } else{
+                        System.out.print(word + " ");;
+                    }
                 }
+            } else{
+                //msg.length < maxLogLenth
+                System.out.print(tempMsg);
             }
-        } else{
-            logp(tempMsg);
+            int backlineNeededNb = 3 - lineNb;
+            for (int i = 0; i < backlineNeededNb; i++){
+                logp("");
+            }
+            writeLine();
+            //auto ajust line off
+        } else {
+            System.out.print(tempMsg);
         }
-        int backlineNeededNb = 3 - lineNb;
-        for (int i = 0; i < backlineNeededNb; i++){
-            logp("");
-        }
-        writeLine();
     }
 
 
@@ -48,10 +54,18 @@ public interface IDisplayConsoleController {
     }
 
     static String getDisplayAttacks(Pokemon pokemon){
-        int topLineSpacesNb = maxLogLength - pokemon.getAtksList().get(0).getName().length() - pokemon.getAtksList().get(2).getName().length();
-        int bottomLineSpacesNb = maxLogLength - pokemon.getAtksList().get(1).getName().length() - pokemon.getAtksList().get(3).getName().length();
-        String str = "1:" + pokemon.getAtksList().get(0).getName() + writeSpace(topLineSpacesNb) + "3:" + pokemon.getAtksList().get(2).getName()
-                + "\n2:" + pokemon.getAtksList().get(1).getName() + writeSpace(bottomLineSpacesNb) + pokemon.getAtksList().get(3).getName();
+        int topLineSpacesNb = maxLogLength/2 - (pokemon.getAtksList().get(0).getName().length() + 2);
+        int bottomLineSpacesNb = maxLogLength/2 - (pokemon.getAtksList().get(1).getName().length() + 2);
+        String str = " \n1:" + pokemon.getAtksList().get(0).getName() + writeSpace(topLineSpacesNb) + "3:" + pokemon.getAtksList().get(2).getName()
+                + "\n2:" + pokemon.getAtksList().get(1).getName() + writeSpace(bottomLineSpacesNb) + "4:" + pokemon.getAtksList().get(3).getName();
+        return str + getNewLine();
+    }
+
+    static String getNewLine(){
+        String str = "\n";
+        for(int i = 0; i < maxLogLength; i++){
+            str = str + "-";
+        }
         return str;
     }
 
