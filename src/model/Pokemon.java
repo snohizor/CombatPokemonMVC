@@ -50,19 +50,13 @@ public class Pokemon {
         this.spe = spe;
     }
 
-    public void attack(Pokemon opponent) {
-        opponent.looseHp(this.use(this.getAtksList().get(GameController.scan()), opponent));
-    }
 
-    public int use(Attack attack, Pokemon opponent){
+    public void use(Attack attack, Pokemon opponent){
         double hpToRemove = ((((this.getLvl() * 0.4 + 2) * this.getAtk() * attack.getPower())/(opponent.getDef() * 50)) + 2);
+        System.out.println(hpToRemove);
         int result = (int) hpToRemove;
-        return result;
-    }
-
-    public void chooseAttack(){
-        int scan = scan();
-        lastAttackDone = this.attackList.get(scan);
+        opponent.setHp(opponent.getHp() - result);
+        GameController.msg = "What is " + this.getName() + " gonna do ?";
     }
 
     public void looseHp(int hpToLoose){

@@ -17,6 +17,7 @@ public interface IDisplayConsoleController {
 
     static void displayMessage(String tempMsg, Pokemon pokemon, Pokemon opponent) {
         //auto ajust line
+        int lineNb = 0;
         if(tempMsg.length() >= maxLogLength){
             String[] cutMsg = tempMsg.split("\\W+");
             int msgLength = 0;
@@ -26,16 +27,32 @@ public interface IDisplayConsoleController {
                     //si on s apprette a depasser
                     System.out.print("\n" + word + " ");
                     msgLength = word.length() + 1;
-                }else{
+                    lineNb++;
+                } else{
                     System.out.print(word + " ");;
                 }
             }
         } else{
             logp(tempMsg);
         }
+        int backlineNeededNb = 3 - lineNb;
+        for (int i = 0; i < backlineNeededNb; i++){
+            logp("");
+        }
+        writeLine();
+    }
 
 
-        //logp(messageToDisplay);
+    static String getStartMessage(Pokemon opponent){
+        return opponent.getName() + " wants to fight !";
+    }
+
+    static String getDisplayAttacks(Pokemon pokemon){
+        int topLineSpacesNb = maxLogLength - pokemon.getAtksList().get(0).getName().length() - pokemon.getAtksList().get(2).getName().length();
+        int bottomLineSpacesNb = maxLogLength - pokemon.getAtksList().get(1).getName().length() - pokemon.getAtksList().get(3).getName().length();
+        String str = "1:" + pokemon.getAtksList().get(0).getName() + writeSpace(topLineSpacesNb) + "3:" + pokemon.getAtksList().get(2).getName()
+                + "\n2:" + pokemon.getAtksList().get(1).getName() + writeSpace(bottomLineSpacesNb) + pokemon.getAtksList().get(3).getName();
+        return str;
     }
 
 
